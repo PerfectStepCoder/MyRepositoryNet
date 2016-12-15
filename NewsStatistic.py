@@ -5,7 +5,7 @@ import codecs
 import json
 import os
 import chardet  # импортируем модуль для авто-определения кодировки текстового файла
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as et
 
 
 def code_detect(path_to_file_text):
@@ -83,7 +83,7 @@ for file in os.listdir("."):
             # print(code_detect(file))
             with codecs.open(file, encoding=code_detect(file)) as f:
                 content_file = "".join([line for line in f.readlines()])
-                rss_news_tree_root = ET.fromstring(content_file)
+                rss_news_tree_root = et.fromstring(content_file)
                 for text_description in rss_news_tree_root.findall("./channel/item/description"):
                     for new_word in tokenize(text_description.text):
                         if len(new_word) > max_length:
